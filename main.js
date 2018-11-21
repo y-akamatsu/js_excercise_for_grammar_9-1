@@ -33,13 +33,8 @@
 //  * - 第1引数: 配列(引数名はarrayとする)
 //  * - 第2引数: コールバック関数(引数名はcallbackとする)
 const each = (array, callback) => {
-  //  * - コールバック関数の内容は、each関数の第1引数で受け取った配列をイテレーションする機能を持つ
-  //  * - コールバックは次の2つの引数を持つ
-  //  * - 第1引数: each関数の第1引数で受け取った配列の各要素を1ループごとにセットする
-  //  * - 第2引数: コールバック関数の第1引数で受け取った要素に対応するインデックス番号をセットする
-  //  * - コールバック関数は戻り値を持たない
-  //  * - each関数は戻り値を持たない
-  for (let i = 0; i < array.length; i++){
+  // for文で配列の数ぶんループ処理を行う。
+  for (let i = 0; i < array.length; i++) {
     callback(array[i], i);
   }
 };
@@ -50,9 +45,16 @@ const each = (array, callback) => {
 // * - コールバック関数の中でconsole.logを使って、コールバック関数の第1引数と第2引数の値を確認する
 // * - each関数内でarrayをループさせるにはfor文を使う
 const inputArrayForEach = [1, 2, 3, 4];
-const retuenedValueOfEach = each(inputArrayForEach, (index, value) => {
-  console.log('each関数のコールバック関数 index番号:' + index, '値：' + value,);
-})
+// コールバック関数の第一引数は受け取った配列の各要素を1ループづつセットする
+// 第二引数は配列に対応したindex番号をセットする
+const returnedValueOfEach = each(inputArrayForEach, (value, index) => {
+  console.log('each関数のコールバック関数 index番号:' + index, '値：' + value);
+});
+//index番号、値の順に表示される
+console.log('each関数の入力値: ', inputArrayForEach);
+console.log('each関数の戻り値: ', returnedValueOfEach);
+
+
 /**
  * 課題2: 「Array.prototype.map()」と同等の機能を持つ関数を作る
  *   - 「Array.prototype.map()」のドキュメント
@@ -81,12 +83,25 @@ const retuenedValueOfEach = each(inputArrayForEach, (index, value) => {
  */
 
 // ここでmap関数を実装する
+// map変数にコールバック関数を代入。第１引数は配列、第２引数はコールバック関数
+const map = (array, callback) => {
+  const newArray = [];
+  each(array, (value, index) => {
+    const newValue = callback(value, index);
+    newArray.push(newValue);
+  });
 
-
+  return newArray;
+};
 // ここでmap関数の挙動を確認する
+const inputArrayForMap = [1, 2, 3];
+const returnedValueOfMap = map(inputArrayForMap, (value, index) => {
+  console.log('map関数のコールバック関数内　index番号：'　+ index, '値:' + value);
+  return value * 2;
+});
 
-
-
+console.log('map関数の入力値:', inputArrayForMap);
+console.log('map関数の戻り値', returnedValueOfMap);
 /**
  * 課題3: 「Array.prototype.filter()」と同等の機能を持つ関数を作る
  *   - 「Array.prototype.filter()」のドキュメント
