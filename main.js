@@ -39,14 +39,20 @@ const each = (array, callback) => {
   //  * - 第2引数: コールバック関数の第1引数で受け取った要素に対応するインデックス番号をセットする
   //  * - コールバック関数は戻り値を持たない
   //  * - each関数は戻り値を持たない
-  for (let i = 0; i < array.length; i++);
-  callback(array[i], i);
-}
-
+  for (let i = 0; i < array.length; i++){
+    callback(array[i], i);
+  }
+};
 
 
 // ここでeach関数の挙動を確かめる
-
+// * - 実装したeach関数が意図通り動くか確かめるためのコードを記述する
+// * - コールバック関数の中でconsole.logを使って、コールバック関数の第1引数と第2引数の値を確認する
+// * - each関数内でarrayをループさせるにはfor文を使う
+const inputArrayForEach = [1, 2, 3, 4];
+const retuenedValueOfEach = each(inputArrayForEach, (index, value) => {
+  console.log('each関数のコールバック関数 index番号:' + index, '値：' + value,);
+})
 /**
  * 課題2: 「Array.prototype.map()」と同等の機能を持つ関数を作る
  *   - 「Array.prototype.map()」のドキュメント
